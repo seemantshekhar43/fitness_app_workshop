@@ -13,15 +13,13 @@ class ReusableBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ReusableCard(
-      content: Column(
+    return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(icon, size: 80,),
           SizedBox(height: 10,),
           Text(label.toUpperCase(), style: kLabelStyle),
         ],
-      ),
-    );
+      );
   }
 }

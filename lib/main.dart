@@ -1,4 +1,5 @@
 import 'package:fitness_app/components/home_screen.dart';
+import 'package:fitness_app/screens/result_screen.dart';
 import 'package:flutter/material.dart';
 
 void main(){

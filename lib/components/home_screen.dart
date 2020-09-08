@@ -1,6 +1,9 @@
+import 'package:fitness_app/calculator_brain.dart';
+import 'package:fitness_app/components/bottom_button.dart';
 import 'package:fitness_app/components/reusable_block.dart';
 import 'package:fitness_app/components/reusable_card.dart';
 import 'package:fitness_app/constant.dart';
+import 'package:fitness_app/screens/result_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,10 +13,13 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+enum Gender { male, female }
+
 class _HomePageState extends State<HomePage> {
   int weight;
   int height;
   int age;
+  Gender gender;
 
   @override
   void initState() {
@@ -22,6 +28,7 @@ class _HomePageState extends State<HomePage> {
     age = 16;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,15 +41,35 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableBlock(
-                    label: 'male',
-                    icon: FontAwesomeIcons.mars,
+                  child: GestureDetector(
+    onTap: () {
+                     setState(() {
+                       gender = Gender.male;
+                     });
+                    },
+                    child: ReusableCard(
+                      color: gender ==  Gender.male ? Color(0xff1d1e33): Color(0xff111328),
+                      content: ReusableBlock(
+                        label: 'male',
+                        icon: FontAwesomeIcons.mars,
+                      ),
+                    ),
                   ),
                 ),
                 Expanded(
-                  child: ReusableBlock(
-                    label: 'female',
-                    icon: FontAwesomeIcons.venus,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        gender = Gender.female;
+                      });
+                    },
+                    child: ReusableCard(
+                      color: gender ==  Gender.female ? Color(0xff1d1e33): Color(0xff111328),
+                      content: ReusableBlock(
+                        label: 'female',
+                        icon: FontAwesomeIcons.venus,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -74,22 +101,19 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                      inactiveTrackColor: Color( 0xff8d8e98),
-                      activeTrackColor: Colors.white,
-                      thumbColor: Color(0xffeb1555),
-                      overlayColor: Color(0x29eb1555),
-                      thumbShape: RoundSliderThumbShape(
-                        enabledThumbRadius: 15
-                      ),
-                      overlayShape: RoundSliderOverlayShape(
-                        overlayRadius: 30
-                      )
-                    ),
+                        inactiveTrackColor: Color(0xff8d8e98),
+                        activeTrackColor: Colors.white,
+                        thumbColor: Color(0xffeb1555),
+                        overlayColor: Color(0x29eb1555),
+                        thumbShape:
+                            RoundSliderThumbShape(enabledThumbRadius: 15),
+                        overlayShape:
+                            RoundSliderOverlayShape(overlayRadius: 30)),
                     child: Slider(
                       value: height.toDouble(),
                       min: 120,
-                      max:220,
-                      onChanged: (value){
+                      max: 220,
+                      onChanged: (value) {
                         setState(() {
                           height = value.toInt();
                         });
@@ -116,30 +140,36 @@ class _HomePageState extends State<HomePage> {
                           weight.toString(),
                           style: kNumberStyle,
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             RawMaterialButton(
                               child: Icon(FontAwesomeIcons.minus),
-                              constraints: BoxConstraints.tightFor(width: 56, height: 56),
+                              constraints: BoxConstraints.tightFor(
+                                  width: 56, height: 56),
                               shape: CircleBorder(),
                               fillColor: Color(0xfff4c4f5e),
                               onPressed: () {
                                 setState(() {
-                                  weight = weight -1;
+                                  weight = weight - 1;
                                 });
                               },
                             ),
-                            SizedBox(width: 10,),
+                            SizedBox(
+                              width: 10,
+                            ),
                             RawMaterialButton(
                               child: Icon(FontAwesomeIcons.plus),
-                              constraints: BoxConstraints.tightFor(width: 56, height: 56),
+                              constraints: BoxConstraints.tightFor(
+                                  width: 56, height: 56),
                               shape: CircleBorder(),
                               fillColor: Color(0xfff4c4f5e),
                               onPressed: () {
                                 setState(() {
-                                  weight = weight -1;
+                                  weight = weight + 1;
                                 });
                               },
                             ),
@@ -162,30 +192,36 @@ class _HomePageState extends State<HomePage> {
                           age.toString(),
                           style: kNumberStyle,
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             RawMaterialButton(
                               child: Icon(FontAwesomeIcons.minus),
-                              constraints: BoxConstraints.tightFor(width: 56, height: 56),
+                              constraints: BoxConstraints.tightFor(
+                                  width: 56, height: 56),
                               shape: CircleBorder(),
                               fillColor: Color(0xfff4c4f5e),
                               onPressed: () {
                                 setState(() {
-                                  age = age -1;
+                                  age = age - 1;
                                 });
                               },
                             ),
-                            SizedBox(width: 10,),
+                            SizedBox(
+                              width: 10,
+                            ),
                             RawMaterialButton(
                               child: Icon(FontAwesomeIcons.plus),
-                              constraints: BoxConstraints.tightFor(width: 56, height: 56),
+                              constraints: BoxConstraints.tightFor(
+                                  width: 56, height: 56),
                               shape: CircleBorder(),
                               fillColor: Color(0xfff4c4f5e),
                               onPressed: () {
                                 setState(() {
-                                  age = age +1;
+                                  age = age + 1;
                                 });
                               },
                             ),
@@ -198,11 +234,20 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: 80,
-            color: Color(0xffeb1555),
-            child: Center(child: Text('calculate'.toUpperCase(), style: kButtonTextStyle,)),
+          GestureDetector(
+            onTap: (){
+              CalculatorBrain calculatorBrain = new CalculatorBrain(height: height, weight: weight);
+              String bmi = calculatorBrain.calculateBMI();
+              String interpretation = calculatorBrain.getInterpretation();
+              String feedback = calculatorBrain.getFeedback();
+              print(bmi + '\n' + interpretation + '\n' + feedback);
+
+              //navigate from home screen to result screen
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResultScreen(
+                bmi: bmi, interpretation: interpretation, feedback: feedback,
+              )));
+            },
+            child: BottomButton(label: 'calculate',),
           )
         ],
       ),
